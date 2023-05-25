@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agenda de Contatos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Agenda de Contatos</h1>
+    <form action="/add" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <input type="submit" value="Adicionar Contato">
+    </form>
+    <h2>Contatos:</h2>
+    <ul>
+        {% for contato in contatos %}
+        <li>{{ contato.nome }} - {{ contato.telefone }} - {{ contato.email }}
+            <form action="/delete/{{ loop.index0 }}" method="post" onsubmit="return confirmarExclusao('{{ contato.nome }}')">
+                <input type="submit" value="Excluir">
+            </form>
+            <form action="/edit/{{ loop.index0 }}" method="post">
+                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                <input type="submit" value="Editar">
+            </form>
+        </li>     
+          
+        {% endfor %}
+    </ul>
+    <script>
+        function confirmarExclusao(nomeContato) {
+            return confirm("Tem certeza que deseja excluir o contato '" + nomeContato + "' da lista de contatos?");
+        }
+    </script>
+    
+    
+</body>
+</html>

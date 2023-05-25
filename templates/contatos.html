@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Contatos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Lista de Contatos</h1>
+    <ul>
+        {% for contato in contatos %}
+        <li>{{ contato.nome }} - {{ contato.telefone }} - {{ contato.email }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
